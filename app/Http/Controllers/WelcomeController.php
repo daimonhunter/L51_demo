@@ -5,7 +5,8 @@ use Cache;
 use League\Flysystem\Exception;
 use Session;
 use App;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use App\Http\Requests\demo\DemoRequest;
 
 class WelcomeController extends Controller
 {
@@ -39,8 +40,10 @@ class WelcomeController extends Controller
         return view('welcome');
     }
 
-    public function getCache()
+    public function getCache(Request $request)
     {
+        helpEx();
+//        dd();
         try {
             //Session and Cache
             if (Session::has('Clients')) {
@@ -49,15 +52,14 @@ class WelcomeController extends Controller
                 $data = $this->cacheQuery("SELECT * FROM oauth_clients WHERE `id` > 0", 30);
                 Session::put('Clients', $data);
             }
-
-            $uid = Request::input('uid', 1);
+            $uid = $request->input('uid', 1);
             $userCacheKey = 'users:' . $uid;
             $user = Cache::remember($userCacheKey, 5, function () use ($uid) {
-                return App\User::findOrFail($uid)->toArray();
+                return App\User::find($uid)->toArray();
             });
 
         } catch (Exception $e) {
-            abort(404, $e->getMessage());
+            abort(404);
         }
         var_dump($data);
         var_dump($user);
@@ -66,7 +68,13 @@ class WelcomeController extends Controller
 
     public function getBlade()
     {
-        return view('/demo/login');
+        return view('/demo/demo');
+    }
+
+    public function postValidation(DemoRequest $request)
+    {
+        echo $request->input('email');
+        var_dump(session::all());
     }
 
     function cacheQuery($sql, $timeout = 60)
