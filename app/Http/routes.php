@@ -23,3 +23,13 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
     'demo' => 'WelcomeController',
 ]);
+
+
+//API路由
+Route::api('v1', function () {
+    Route::get('users/{id}', 'Api\V1\UserController@show');
+});
+
+Route::api('v2', function () {
+    Route::get('users/{id}', 'Api\V2\UserController@show');
+});
