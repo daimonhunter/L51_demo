@@ -77,6 +77,10 @@ class WelcomeController extends Controller
         var_dump(session::all());
     }
 
+    public function getAjaxBlade()
+    {
+        return view('/demo/ajax_post');
+    }
     function cacheQuery($sql, $timeout = 60)
     {
         return Cache::remember(md5($sql), $timeout, function () use ($sql) {
