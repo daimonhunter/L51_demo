@@ -26,10 +26,7 @@ Route::controllers([
 
 
 //API路由
-Route::api('v1', function () {
-    Route::get('users/{id}', 'Api\V1\UserController@show');
+Route::group(['prefix' => 'api/v1'], function () {
+    Route::resource('users', 'UsersController');
 });
 
-Route::api('v2', function () {
-    Route::get('users/{id}', 'Api\V2\UserController@show');
-});

@@ -40,6 +40,11 @@ class WelcomeController extends Controller
         return view('welcome');
     }
 
+    public function users()
+    {
+        return app/User::all();
+    }
+
     public function getCache(Request $request)
     {
         helpEx();
@@ -49,7 +54,7 @@ class WelcomeController extends Controller
             if (Session::has('Clients')) {
                 $data = Session::get('Clients');
             } else {
-                $data = $this->cacheQuery("SELECT * FROM oauth_clients WHERE `id` > 0", 30);
+                $data = $this->cacheQuery("SELECT * FROM wb_users WHERE `uid` > 0", 30);
                 Session::put('Clients', $data);
             }
             $uid = $request->input('uid', 1);
