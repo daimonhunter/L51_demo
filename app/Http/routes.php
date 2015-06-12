@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('errors/404', function(){
+Route::get('errors/404', function () {
     return view('errors/404');
 });
 
@@ -29,7 +29,15 @@ Route::controllers([
 //    Route::resource('users','UsersController');
 //});
 $api = app('api.router');
-$api->version('v1',['prefix' => 'api','namespace' => 'App\Http\Controllers'], function ($api) {
-    $api->resource('users','UsersController');
-    $api->resource('app','WelcomeController');
-});
+$api->version('v1',
+                [
+                    'prefix'    => 'api',
+                     'namespace' => 'App\Http\Controllers',
+                     'protected' => true
+                ], function ($api) {
+                $api->resource('users', 'UsersController');
+                $api->resource('app', 'WelcomeController');
+                $api->post('oauth/access_token', function () {
+                    return Response::json(Authorizer::issueAccessToken());
+                });
+    });
