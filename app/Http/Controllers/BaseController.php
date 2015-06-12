@@ -1,4 +1,4 @@
-<?php
+<?php namespace App\Http\Controllers;
 /**
  * Created by PhpStorm.
  * User: Daimon
@@ -6,7 +6,6 @@
  * Time: 18:12
  */
 
-use Illuminate\Routing\Controller;
 use Dingo\Api\Routing\ControllerTrait;
 
 class BaseController extends Controller

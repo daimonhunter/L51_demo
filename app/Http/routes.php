@@ -24,12 +24,12 @@ Route::controllers([
     'demo' => 'WelcomeController',
 ]);
 
-
 //API路由
-Route::api('v1', function () {
-    Route::get('users/{id}', 'Api\V1\UserController@show');
-});
-
-Route::api('v2', function () {
-    Route::get('users/{id}', 'Api\V2\UserController@show');
+//Route::group(['prefix'=>'api/v1'],function(){
+//    Route::resource('users','UsersController');
+//});
+$api = app('api.router');
+$api->version('v1',['prefix' => 'api','namespace' => 'App\Http\Controllers'], function ($api) {
+    $api->resource('users','UsersController');
+    $api->resource('app','WelcomeController');
 });
