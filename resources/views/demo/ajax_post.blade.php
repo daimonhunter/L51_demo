@@ -53,7 +53,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">Login</button>
+                                    <button type="button" id="submit" class="btn btn-primary">Login</button>
 
                                     <a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your
                                         Password?</a>
@@ -67,20 +67,24 @@
     </div>
 @endsection
 <script>
-    $.ajax({
-        type: 'POST',
-        url: '/ajax/create',
-        data: {date: '2015-03-12'},
-        dataType: 'json',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        },
-        success: function (data) {
-            console.log(data.status);
-        },
-        error: function (xhr, type) {
-            alert('Ajax error!')
+    $("#submit").onclick(
+            function(){
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url('/demo/validation') }}',
+                    data: {date: '2015-03-12'},
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success: function (data) {
+                        console.log(data.status);
+                    },
+                    error: function (xhr, type) {
+                        alert('Ajax error!')
 
-        }
-    });
+                    }
+                });
+            });
+
 </script>

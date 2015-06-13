@@ -25,8 +25,20 @@ Route::controllers([
 ]);
 
 
-//API路由
-Route::group(['prefix' => 'api/v1'], function () {
-    Route::resource('users', 'UsersController');
-});
-
+/API路由
+//Route::group(['prefix'=>'api/v1'],function(){
+//    Route::resource('users','UsersController');
+//});
+$api = app('api.router');
+$api->version('v1',
+    [
+        'prefix'    => 'api',
+        'namespace' => 'App\Http\Controllers',
+        'protected' => true
+    ], function ($api) {
+        $api->resource('users', 'UsersController');
+        $api->resource('app', 'WelcomeController');
+        $api->post('oauth/access_token', function () {
+            return Response::json(Authorizer::issueAccessToken());
+        });
+    });
