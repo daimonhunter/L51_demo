@@ -34,10 +34,10 @@ return [
     'grant_types' => [
         'password' => [
             'class' => '\League\OAuth2\Server\Grant\PasswordGrant',
-            'callback' => function($email, $password) {
+            'callback' => function($username, $password) {
                 $authManager = app()['auth'];
                 if (app()["auth"]->once([
-                    "email" => $email,
+                    "username" => $username,
                     "password" => $password
                 ])) {
                     return $authManager->user()->id;

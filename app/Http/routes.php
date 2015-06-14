@@ -25,20 +25,37 @@ Route::controllers([
 ]);
 
 
-/API路由
-//Route::group(['prefix'=>'api/v1'],function(){
-//    Route::resource('users','UsersController');
-//});
+//API路由
 $api = app('api.router');
 $api->version('v1',
     [
-        'prefix'    => 'api',
-        'namespace' => 'App\Http\Controllers',
-        'protected' => true
+        'prefix'    => 'api',                   //路由前缀
+        'namespace' => 'App\Http\Controllers',  //API命名空间
+        'protected' => true,                    //是否需要登录认证
+        'limit'     => 30,                      //请求速率
+        'expires'   => 1                        //请求限制时间限制
     ], function ($api) {
+        //获取access_token路由，不需要登录认证
+        $api->get('oauth/access_token', ['protected'=> false,function () {
+            return Authorizer::issueAccessToken();
+        }]);
         $api->resource('users', 'UsersController');
         $api->resource('app', 'WelcomeController');
-        $api->post('oauth/access_token', function () {
-            return Response::json(Authorizer::issueAccessToken());
-        });
+
+    });
+$api->version('v2',
+    [
+        'prefix'    => 'api',                   //路由前缀
+        'namespace' => 'App\Http\Controllers',  //API命名空间
+        'protected' => true,                    //是否需要登录认证
+        'limit'     => 30,                      //请求速率
+        'expires'   => 1                        //请求限制时间限制
+    ], function ($api) {
+        //获取access_token路由，不需要登录认证
+        $api->get('oauth/access_token', ['protected'=> false,function () {
+            return Authorizer::issueAccessToken();
+        }]);
+        $api->resource('users', 'UsersController');
+        $api->resource('app', 'WelcomeController');
+
     });

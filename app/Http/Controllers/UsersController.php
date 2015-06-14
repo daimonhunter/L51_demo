@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 namespace App\Http\Controllers;
@@ -17,7 +16,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return User::all();
+
     }
 
     /**
@@ -48,7 +47,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        return User::find($id);
+        return User::findOrFail($id);
     }
 
     /**
@@ -79,30 +78,8 @@ class UsersController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    protected function destroy($id)
     {
         //
     }
 }
-=======
-<?php  namespace App\Http\Controllers;
-/**
- * Created by PhpStorm.
- * User: Daimon
- * Date: 2015/6/11
- * Time: 18:13
- */
-use App\User as User;
-class UsersController extends Controller
-{
-    public function index()
-    {
-        return User::all();
-    }
-
-    public function show($id)
-    {
-        return User::find($id);
-    }
-}
->>>>>>> origin/dingo
