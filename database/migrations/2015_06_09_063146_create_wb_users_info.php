@@ -31,7 +31,7 @@ class CreateWbUsersInfo extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users_info');
+		Schema::drop('wb_users_info');
 	}
 
 }

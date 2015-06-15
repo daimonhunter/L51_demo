@@ -47,6 +47,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
+//        Log::info('Users::show:'.var_export($_REQUEST,true));
         return User::findOrFail($id);
     }
 

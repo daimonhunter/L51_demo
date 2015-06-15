@@ -12,6 +12,6 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        'api/oauth/access_token',
+        'api/oauth2/access_token',
     ];
 }
