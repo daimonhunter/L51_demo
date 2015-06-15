@@ -11,7 +11,7 @@
 |
 */
 Log::info(var_export(Request::url(),true));
-Log::info(var_export($_REQUEST,true));
+Log::info(var_export($_GET,true));
 Route::get('/', function () {
     return view('welcome');
 });
@@ -51,7 +51,7 @@ $api->version('v1',
         //发放authorization_code
         $api->post('oauth2/authorize', 'AuthController@getAuthorizeCode');
         //获取access_token路由，不需要登录认证
-        $api->get('oauth2/access_token', ['protected'=> false,function () {
+        $api->post('oauth2/access_token', ['protected'=> false,function () {
             try{
                 Log::info(var_export($_GET,true));
                 $token = Authorizer::issueAccessToken();

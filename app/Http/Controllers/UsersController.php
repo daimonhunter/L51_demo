@@ -42,13 +42,13 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show()
     {
 //        Log::info('Users::show:'.var_export($_REQUEST,true));
-        return User::findOrFail($id);
+        $uid = Request::get('uid');
+        return User::findOrFail($uid);
     }
 
     /**
